@@ -4,6 +4,8 @@
     <link href="libs/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="libs/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="assets/css/styles.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body style="{{getBackground()}}" ng-controller="MainController">
 
@@ -13,7 +15,7 @@
         <span class="pull-left menu-item" ng-click="restart()"><i class="glyphicon glyphicon-remove"></i></span>
         <span class="pull-right menu-item" ng-click="showStats()"><i class="glyphicon glyphicon-stats"></i></span>
 
-        <span class="bordered col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 text large text-center">
+        <span class="bordered col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text large text-center">
             <span>{{event.title}}</span>
         </span>
 
@@ -88,7 +90,6 @@
 <script src="libs/underscore/underscore-min.js"></script>
 <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 <script src="libs/angularjs/angular.min.js"></script>
-
 
 
 <script src="src/generic/generic.js"></script>
