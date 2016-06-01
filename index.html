@@ -1,0 +1,109 @@
+<html ng-app="hb">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+    <link href="libs/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="libs/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body style="{{getBackground()}}" ng-controller="MainController">
+
+<div class="container-fluid detail">
+
+    <span class="row">
+        <span class="pull-left menu-item" ng-click="restart()"><i class="glyphicon glyphicon-remove"></i></span>
+        <span class="pull-right menu-item" ng-click="showStats()"><i class="glyphicon glyphicon-stats"></i></span>
+
+        <span class="bordered col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 text large text-center">
+            <span>{{event.title}}</span>
+        </span>
+
+        <div class="col-xs-12 text-center ">
+            <div class="item bordered" style="{{getItem()}}"></div>
+        </div>
+
+        </span>
+
+    <div class="clearfix"></div>
+
+    <div style="position: absolute; bottom: 10px; left: 10px; right: 10px;">
+            <span ng-repeat="option in event.options" ng-class="getOptionClass()" ng-click="select(option)">
+                <div class="text bordered text-center" style="margin: 10px; padding: 10px;">
+                    <span class="key">{{$index+1}}</span>
+                    {{option.title}}
+                </div>
+            </span>
+    </div>
+
+
+    </span>
+</div>
+
+<div id="result" class="modal">
+    <div class="modal-body">
+        <div class="text full-bg large text-center">
+            {{result}}
+        </div>
+    </div>
+</div>
+
+<div id="restart" class="modal text  large text-center">
+    <div class="modal-body">
+        Are you sure you want to restart?
+    </div>
+    <div class="modal-footer">
+        <div class="button pull-right" data-dismiss="modal" ng-click="restart(true)">YES</div>
+        <div class="button pull-left" data-dismiss="modal">NO</div>
+    </div>
+</div>
+
+<div id="stats" class="modal text large text-center">
+    <div class="modal-body">
+        <div ng-repeat="stat in getStatKeys()">
+            <span class="col-xs-6 col-sm-4">
+                {{stat}}: {{getStat(stat)}}
+            </span>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="modal-footer">
+        <div class="button pull-right" data-dismiss="modal">CLOSE</div>
+    </div>
+</div>
+
+<div id="killed" class="modal text large text-center">
+    <div class="modal-body">
+        {{killMessage}}
+    </div>
+    <div class="modal-footer">
+        <div class="button pull-right" data-dismiss="modal" ng-click="restart()">RESTART</div>
+    </div>
+</div>
+
+<div class="days bordered">
+    {{days}} Days Passed
+</div>
+
+<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/underscore/underscore-min.js"></script>
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/angularjs/angular.min.js"></script>
+
+
+
+<script src="src/generic/generic.js"></script>
+<script src="src/generic/items.js"></script>
+<script src="src/generic/foods.js"></script>
+
+<script src="src/logic/fight.js"></script>
+
+<script src="src/worlds/woods.js"></script>
+<script src="src/worlds/dreams.js"></script>
+<script src="src/worlds/ooo.js"></script>
+
+
+<script src="src/hbd.js"></script>
+<script src="src/hb.module.js"></script>
+<script src="src/hb.controller.js"></script>
+</body>
+</html>
