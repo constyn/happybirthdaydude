@@ -83,6 +83,7 @@ function MainController($scope, $timeout) {
         $scope.event = event;
         $scope.days = days;
         stats.age += days;
+        stats.progress += days / 500;
 
         $(".days").fadeIn(fadeIn).fadeOut(fadeOut, function () {
             $('.detail').fadeIn(fadeIn / 7);

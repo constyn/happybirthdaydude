@@ -1,16 +1,23 @@
 var generic = [];
 
+function teleporterChance(chance) {
+    return function (stats) {
+        return stats.progress > 0.9 ? stats.progress : chance;
+    }
+}
+
 var teleporters = [
     {
         title: "You have found The T.A.R.D.I.S",
         background: "road.jpg",
         item: "tardis.png",
-        chance: 0.005,
+        chance: teleporterChance(0.005),
         options: [
             {
                 title: "Go inside and see whatever lies beyond",
                 chance: 1,
                 action: function (success, stats) {
+                    stats.progress = 0;
                     stats.location = Math.round(Math.random() * _.keys(events).length);
                     return "You have reached " + locationNames[stats.location];
                 }

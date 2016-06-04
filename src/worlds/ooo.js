@@ -146,6 +146,52 @@ var ooo = [
 
     //Enemies
     {
+        title: "You have meet The Lich",
+        background: "cave2",
+        item: "at/lich.png",
+        chance: function (stats) {
+            return stats.progress > 0.8 ? stats.progress : 0.002;
+        },
+        options: [
+            {
+                title: "Fight!",
+                chance: 1,
+                action: function (success, stats) {
+                    var message;
+                    if (hasItem(THE_GAUNTLET)) {
+                        fight(stats, {health: 0.2, defence: 0.2, attack: 0.2});
+                        if (stats.health <= 0) {
+                            message = "The Lich desired the end of our hero and the existence of life.";
+                        } else {
+                            message = "Wealding the Gauntled you defeated the Lich";
+                        }
+                    } else {
+                        fight(stats, {health: 0.8, defence: 0.6, attack: 0.8});
+                        if (stats.health <= 0) {
+                            message = "Withtout the Gauntled you had no chance!";
+                        } else {
+                            message = "You managed to defeat the Lich without the Gauntlet! You are a true hero";
+                        }
+                    }
+
+                    return message;
+
+                }
+            },
+            {
+                title: "Try to run even though you will cross paths again",
+                chance: 1,
+                action: function () {
+                    if (hasItem(THE_GAUNTLET)) {
+                        return "You should attack - You posses the Gauntlet.";
+                    } else {
+                        return "Probably it is wiser - you are still missing the Gauntlet.";
+                    }
+                }
+            }
+        ]
+    },
+    {
         title: "Tiffany is trying to Ambush you. JAKE is my friend!!! She shouts filled with geaulosy",
         background: "at/treehouse.jpg",
         item: "at/tiffany.png",

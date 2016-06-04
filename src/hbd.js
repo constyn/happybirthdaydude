@@ -2,6 +2,13 @@ var JOURNAL1 = 0;
 var JOURNAL2 = 1;
 var JOURNAL3 = 2;
 
+//OOO
+var THE_GAUNTLET = 3; //Needed to kill the lich
+
+function hasItem(item) {
+    return stats.items.indexOf(item) !== -1;
+}
+
 var initialStats = {
     age: 365 * 15,
     health: 0.9,
@@ -15,9 +22,9 @@ var initialStats = {
     keys: 1,
     defence: 0.1,
     attack: 0.1,
+    progress: 0,
     items: []
 };
-
 
 
 var devMode = true;
@@ -35,8 +42,6 @@ var locationNames = {
 function pickFrom(arr) {
     return arr[Math.round(Math.random() * arr.length)];
 }
-
-
 
 
 //Functions
