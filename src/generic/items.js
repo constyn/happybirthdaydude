@@ -1,5 +1,29 @@
 var items = [
     {
+        title: "My leader heard about your actions. He wants to speak with you",
+        background: "zen_garden.png",
+        item: "vase.gif",
+        chance: function (stats) {
+            return stats.progress > 0.95 && stats.boss === 0 ? 1 : 0;
+        },
+        options: [
+            {
+                title: "Show me the path to your leader!",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.boss = 1;
+                    return "You are on your way to the leader!";
+                }
+            },
+            {
+                title: "I will wonder the area for a while",
+                chance: 1,
+                action: function (success, stats) {
+                    return "The messenger follows you";
+                }
+            }]
+    },
+    {
         title: "You have found a wishing orb!",
         background: "dungeon.png",
         item: "orb.png",

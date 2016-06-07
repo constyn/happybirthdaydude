@@ -41,7 +41,7 @@ function generateStore(location) {
     var healthCost = Math.round(10 + (10 * Math.random()));
     var healthPlus = round(0.01 * healthCost);
     var opt3 = {
-        title: "Health; +" + healthPlus + " defence; -" + healthCost + " coins;",
+        title: "Health; +" + healthPlus + " health; -" + healthCost + " coins;",
         chance: 1,
         action: function (success, stats) {
             console.log(stats.money, healthCost);

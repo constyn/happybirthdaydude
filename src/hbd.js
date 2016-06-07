@@ -16,6 +16,7 @@ var initialStats = {
     defence: 0.1,
     attack: 0.1,
     progress: 0,
+    boss: 0,
     items: []
 };
 

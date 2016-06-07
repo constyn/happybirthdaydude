@@ -1,5 +1,31 @@
 var woods = [
     {
+        title: "The forest Guardian!",
+        background: "forest/forest_5.png",
+        item: "woods/boss.gif",
+        chance: function (stats) {
+            return stats.boss;
+        },
+        options: [
+            {
+                title: "Fight",
+                chance: 1,
+                action: function (success, stats) {
+                    fight(stats, {health: 0.5, defence: 0.1, attack: 0.2});
+                    if (stats.health > 0) {
+                        stats.attack += 0.15;
+                        stats.defence += 0.1;
+                        stats.boss = 0;
+                        stats.progress = 0;
+                        randomLoot(stats);
+                        return "You defeated the Forest Guardian!";
+                    } else {
+                        return "You are defeated"
+                    }
+                }
+            }]
+    },
+    {
         title: "What would you like to buy?",
         background: "intavern.gif",
         item: "clerk.gif",
@@ -11,7 +37,7 @@ var woods = [
         background: "forest/forest_7.png",
         item: "woods/orcanim.gif",
         chance: function (stats) {
-            return 0.5*stats.progress;
+            return 0.5 * stats.progress;
         },
         options: [
             {

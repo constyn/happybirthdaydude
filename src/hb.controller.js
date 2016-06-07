@@ -164,7 +164,7 @@ function MainController($scope, $timeout) {
                 "-moz-background-size: cover;" +
                 "-o-background-size: cover;" +
                 "background-size: cover;" +
-                "margin-top: 30px;";
+                "margin-top: 5px;";
 
         }
     };
