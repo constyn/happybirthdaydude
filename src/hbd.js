@@ -21,7 +21,7 @@ var initialStats = {
 };
 
 
-var devMode = false;
+var devMode = true;
 var events = {
     "0": [].concat(woods).concat(items).concat(foods)
 };
