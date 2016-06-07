@@ -25,7 +25,7 @@ var foods = [
     },
     {
         title: "You have found an apple",
-        background: "forest_6.jpg",
+        background: "forest/forest_6.jpg",
         item: "apple.png",
         chance: 0.1,
         options: [

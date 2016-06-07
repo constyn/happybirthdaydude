@@ -28,10 +28,12 @@
     <div class="clearfix"></div>
 
     <div style="position: absolute; bottom: 10px; left: 10px; right: 10px;">
-            <span ng-repeat="option in event.options" ng-class="getOptionClass()" ng-click="select(option)">
+            <span ng-repeat="option in event.options track by $index" ng-class="getOptionClass()" ng-click="select(option)">
                 <div class="text bordered text-center" style="margin: 10px; padding: 10px;">
                     <span class="key">{{$index+1}}</span>
-                    {{option.title}}
+                    <div ng-repeat="title in getTitle(option)">
+                        {{title}}
+                    </div>
                 </div>
             </span>
     </div>
@@ -92,15 +94,14 @@
 <script src="libs/angularjs/angular.min.js"></script>
 
 
+<script src="src/generators.js"></script>
+
 <script src="src/generic/generic.js"></script>
 <script src="src/generic/items.js"></script>
 <script src="src/generic/foods.js"></script>
 
 <script src="src/logic/fight.js"></script>
-
 <script src="src/worlds/woods.js"></script>
-<script src="src/worlds/dreams.js"></script>
-<script src="src/worlds/ooo.js"></script>
 
 
 <script src="src/hbd.js"></script>

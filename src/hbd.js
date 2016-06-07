@@ -1,10 +1,3 @@
-var JOURNAL1 = 0;
-var JOURNAL2 = 1;
-var JOURNAL3 = 2;
-
-//OOO
-var THE_GAUNTLET = 3; //Needed to kill the lich
-
 function hasItem(item) {
     return stats.items.indexOf(item) !== -1;
 }
@@ -13,7 +6,7 @@ var initialStats = {
     age: 365 * 15,
     health: 0.9,
     money: 10,
-    luck: 0.6,
+    luck: 0.3,
     knowledge: 0.1,
     currentLocation: 0,
     location: 0,
@@ -29,18 +22,48 @@ var initialStats = {
 
 var devMode = true;
 var events = {
-    "0": [].concat(woods).concat(items).concat(foods).concat(teleporters),
-    "1": dreams,
-    "2": [].concat(ooo).concat(teleporters)
+    "0": [].concat(woods).concat(items).concat(foods)
 };
 var locationNames = {
-    "0": "RPG Woods",
-    "1": "Dreamland",
-    "2": "OOO"
+    "0": "Woods"
 };
 
 function pickFrom(arr) {
     return arr[Math.round(Math.random() * arr.length)];
+}
+
+
+function randomLoot(stats) {
+
+    var money = 0;
+    var keys = 0;
+    var result = "You search the corpse for loot. You find nothing";
+
+    if (Math.random() < stats.luck) {
+
+        if (Math.random() < stats.luck) {
+            money += Math.round(Math.random() * 6);
+        }
+
+        if (Math.random() < stats.luck) {
+            keys += Math.round(Math.random() * 6);
+        }
+    }
+
+    if (Math.random() < stats.luck) {
+        stats.attack += 0.01;
+        stats.defence += 0.01;
+    }
+
+    if (money > 0 || keys > 0) {
+        result = "You found "
+            + (money > 0 ? money + " coin(s)" : "")
+            + (keys > 0 ? keys + " key(s)" : "");
+    }
+
+    return result;
+
+
 }
 
 

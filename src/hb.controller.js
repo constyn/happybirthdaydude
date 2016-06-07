@@ -101,6 +101,14 @@ function MainController($scope, $timeout) {
         }
     };
 
+    $scope.getTitle = function (option) {
+        if (option && option.title) {
+            return option.title.split(';');
+        } else {
+            return "";
+        }
+    };
+
     $scope.select = function (option) {
         $scope.result = undefined;
         if (typeof option.action === 'function') {

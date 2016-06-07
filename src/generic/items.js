@@ -1,97 +1,85 @@
 var items = [
     {
-        title: "You stumble upon a journal",
-        background: "road.jpg",
-        item: "journal_3.jpeg",
-        chance: function (stats) {
-            if (stats.items.indexOf(JOURNAL3) === -1) {
-                return 0.005 * stats.luck;
-            } else {
-                return 0;
-            }
-        },
+        title: "You have found a wishing orb!",
+        background: "dungeon.png",
+        item: "orb.png",
+        chance: 0.05,
         options: [
             {
-                title: "Absorb journal knowledge.",
+                title: "-0.4 knowledge, +0.1 health",
                 chance: 1,
                 action: function (success, stats) {
-                    stats.knowledge += 0.2;
-                    stats.happyness -= 0.01;
-                    stats.items.push(JOURNAL3);
-                    return "You absorbed the journal knowledge but you feel sad because you find out about the mysteries of the world";
+                    stats.knowledge -= 0.4;
+                    stats.health += 0.1;
+                    return "Sometimes you have to do compromises";
                 }
             },
             {
-                title: "Ignore the journal. It might do you more bad than good",
+                title: "-0.1 attack, -0.1 defence, +0.1 luck",
                 chance: 1,
                 action: function (success, stats) {
-                    stats.happyness -= 0.01;
-                    return "You feel a little bad living the book behind";
+                    stats.attack -= 0.1;
+                    stats.defence -= 0.1;
+                    stats.luck += 0.1;
+                    return "Sometimes you have to do compromises";
+                }
+            },
+            {
+                title: "-0.3 happyness, +0.1 defence, +0.1 offence",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.happyness -= 0.3;
+                    stats.defence += 0.1;
+                    stats.attack += 0.1;
+                    return "Sometimes you have to do compromises";
                 }
             }
         ]
     },
     {
-        title: "You stumble upon a journal",
-        background: "road.jpg",
-        item: "journal_2.png",
+        title: "You found The Bag of Holding. A magical object that can hold everything inside of it. It pulls in everything around it.",
+        background: "item_forest.png",
+        item: "bagofholdings.png",
         chance: function (stats) {
-            if (stats.items.indexOf(JOURNAL2) === -1) {
-                return 0.005 * stats.luck;
-            } else {
-                return 0;
-            }
+            return 0.2 * stats.luck;
         },
         options: [
             {
-                title: "Absorb journal knowledge.",
-                chance: 1,
+                title: "Check what is inside of it",
+                chance: function (stats) {
+                    return 0.4 + stats.luck;
+                },
                 action: function (success, stats) {
-                    stats.knowledge += 0.25;
-                    stats.happyness -= 0.02;
-                    stats.items.push(JOURNAL2);
-                    return "You absorbed the journal knowledge but you feel sad because you find out about the mysteries of the world";
+                    if (success) {
+                        var result = "You have found: ";
+                        var money = 1;
+                        if (Math.random() > stats.luck) {
+                            money = Math.round(Math.random() * 10);
+                        }
+
+                        result += money + " coins;";
+                        stats.money += money;
+
+                        if (Math.random() > stats.luck) {
+                            stats.keys += 1;
+                            result += " 1 key;";
+                        }
+
+                        return result;
+                    } else {
+                        if (Math.random() < stats.luck) {
+                            return "The bag contained a strange gas. " + randomDamage(0.04);
+                        } else {
+                            return "There is nothing inside it";
+                        }
+
+                    }
                 }
             },
             {
-                title: "Ignore the journal. It might do you more bad than good",
+                title: "Leave it alone",
                 chance: 1,
-                action: function (success, stats) {
-                    stats.happyness -= 0.01;
-                    return "You feel a little bad living the book behind";
-                }
-            }
-        ]
-    },
-    {
-        title: "You stumble upon a journal",
-        background: "road.jpg",
-        item: "journal_1.png",
-        chance: function (stats) {
-            if (stats.items.indexOf(JOURNAL1) === -1) {
-                return 0.005 * stats.luck;
-            } else {
-                return 0;
-            }
-        },
-        options: [
-            {
-                title: "Absorb journal knowledge.",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.knowledge += 0.2;
-                    stats.happyness -= 0.05;
-                    stats.items.push(JOURNAL1);
-                    return "You absorbed the journal knowledge but you feel sad because you find out about the mysteries of the world";
-                }
-            },
-            {
-                title: "Ignore the journal. It might do you more bad than good",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.happyness -= 0.01;
-                    return "You feel a little bad living the book behind";
-                }
+                action: "Probably better! You never know what it might contain."
             }
         ]
     }

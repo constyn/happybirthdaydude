@@ -1,7 +1,38 @@
 var woods = [
     {
+        title: "What would you like to buy?",
+        background: "intavern.gif",
+        item: "clerk.gif",
+        chance: 0.2,
+        options: generateStore(1)
+    },
+    {
+        title: "You encounter an orc",
+        background: "forest/forest_7.png",
+        item: "woods/orcanim.gif",
+        chance: function (stats) {
+            return 0.5*stats.progress;
+        },
+        options: [
+            {
+                title: "Attack",
+                chance: 1,
+                action: function (success, stats) {
+                    fight(stats, {health: 0.2, defence: 0.04, attack: 0.1});
+                    if (stats.health > 0) {
+                        return "You defeated the orc. " + randomLoot(stats);
+                    }
+                }
+            },
+            {
+                title: "Dodge",
+                chance: 1,
+                action: "Your experience will never grow if you miss all the fights!"
+            }]
+    },
+    {
         title: "You found a pack of 4 goblins",
-        background: "forest_4.jpeg",
+        background: "forest/forest_4.jpeg",
         item: "goblin.png",
         chance: 0.12,
         options: [
@@ -46,7 +77,7 @@ var woods = [
     },
     {
         title: "You found a goblin",
-        background: "forest_4.jpeg",
+        background: "forest/forest_4.jpeg",
         item: "goblin.png",
         chance: 0.2,
         options: [
@@ -91,7 +122,7 @@ var woods = [
     },
     {
         title: "You stumble upon a strange mushroom",
-        background: "forest_1.png",
+        background: "forest/forest_1.png",
         item: "mushroomie.gif",
         chance: function (stats) {
             return 0.06;
@@ -145,7 +176,7 @@ var woods = [
     },
     {
         title: "You stumble upon an opened chest",
-        background: "forest_1.png",
+        background: "forest/forest_1.png",
         item: "chest.png",
         chance: function (stats) {
             return 0.05 * stats.luck;
@@ -185,7 +216,7 @@ var woods = [
 
     {
         title: "You stumble upon a chest. The chest is locked with a key",
-        background: "forest_1.png",
+        background: "forest/forest_1.png",
         item: "chest.png",
         chance: function (stats) {
             return 0.1 * stats.luck;
@@ -200,13 +231,13 @@ var woods = [
                     if (success) {
                         stats.keys--;
 
-                        if (Math.random() > stats.luck) {
+                        if (Math.random() < 0.8) {
 
-                            if (Math.random() < 0.5 * stats.luck) {
+                            if (Math.random() < 0.8 * stats.luck) {
                                 var money = Math.round(Math.random() * 5);
                                 stats.money += money;
                                 return "You have found " + money + " coins";
-                            } else if (Math.random() < 0.2 * status.luck) {
+                            } else if (Math.random() < 0.6 * status.luck) {
                                 var keys = Math.round(Math.random() * 2);
                                 stats.keys += keys;
                                 return "You have found " + keys + " keys";
