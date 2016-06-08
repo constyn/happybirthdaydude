@@ -60,6 +60,9 @@ function MainController($scope, $timeout) {
     function tick() {
         console.log("----------[ Tick ]-----------");
         window.localStorage.setItem('stats', JSON.stringify(stats));
+
+
+
         var days = 0;
         while (event === undefined) {
             try {
@@ -84,6 +87,8 @@ function MainController($scope, $timeout) {
         $scope.days = days;
         stats.age += days;
         stats.progress += days / 500;
+
+
 
         $(".days").fadeIn(fadeIn).fadeOut(fadeOut, function () {
             $('.detail').fadeIn(fadeIn / 7);
@@ -129,6 +134,8 @@ function MainController($scope, $timeout) {
             $("#killed").modal('show');
         }
 
+
+        correctStats(stats);
     };
 
     window.onkeyup = function (e) {
@@ -143,8 +150,8 @@ function MainController($scope, $timeout) {
         } else if (val === 35) {
             $scope.showStats();
         } else if (val === -21) {
-            if ($('#stats').css('display') !== 'none') {
-                $('#stats').modal('hide');
+            if ($('#status').css('display') !== 'none') {
+                $('#status').modal('hide');
             }
         } else if (val == 30) {
             $timeout(function () {
@@ -170,7 +177,7 @@ function MainController($scope, $timeout) {
     };
 
     $scope.showStats = function () {
-        $('#stats').modal('show');
+        $('#status').modal('show');
     };
 
     $scope.restart = function (bool) {

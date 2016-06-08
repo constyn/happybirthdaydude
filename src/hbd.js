@@ -20,13 +20,31 @@ var initialStats = {
     items: []
 };
 
+function correctStats(stats) {
+    if (stats.happyness < 0) {
+        stats.health -= 0.02;
+    } else if (stats.happyness > 0.5) {
+        stats.health += 0.01;
+    }
+
+    stats.happyness = stats.happyness > 1 ? 1 : stats.happyness;
+    stats.health = stats.health > 2 ? 2 : stats.health;
+
+    _.each(['luck', 'defence', 'attack'], function(key){
+        stats[key] = stats[key] > 1 ? 1 : stats[key];
+        stats[key] = stats[key] < 0 ? 0 : stats[key];
+    });
+
+}
 
 var devMode = true;
 var events = {
-    "0": [].concat(woods).concat(items).concat(foods)
+    "0": [].concat(woods).concat(items).concat(foods).concat(generic),
+    "1": [].concat(mountains).concat(items).concat(foods).concat(generic)
 };
 var locationNames = {
-    "0": "Woods"
+    "0": "Woods",
+    "1": "Mountains"
 };
 
 function pickFrom(arr) {
@@ -51,10 +69,6 @@ function randomLoot(stats) {
         }
     }
 
-    if (Math.random() < stats.luck) {
-        stats.attack += 0.01;
-        stats.defence += 0.01;
-    }
 
     if (money > 0 || keys > 0) {
         result = "You found "
@@ -62,9 +76,29 @@ function randomLoot(stats) {
             + (keys > 0 ? keys + " key(s)" : "");
     }
 
+    if (Math.random() < stats.luck) {
+        result += " - You feel a stronger";
+        stats.attack += 0.01;
+        stats.defence += 0.01;
+    }
+
+
     return result;
 
 
+}
+
+
+function randomIncrease(amount) {
+    var possible = ['health', 'luck', 'knowledge', 'happyness', 'defence', 'attack'];
+    var val = pickFrom(possible);
+    var result = "Nothing happened";
+    if (stats[val] !== undefined) {
+        stats[val] += amount;
+        result = "Your " + val + " received a decrease of " + amount;
+    }
+
+    return result;
 }
 
 

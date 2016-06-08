@@ -24,6 +24,29 @@ var items = [
             }]
     },
     {
+        title: "The enchanted offers you a 50-50 choice",
+        background: "pool_cave.png",
+        item: "fogo.gif",
+        chance: 0.02,
+        options: [
+            {
+                title: "Accept the fire's offer",
+                chance: 0.5,
+                action: function (success, stats) {
+                    if (success) {
+                        return randomIncrease(0.08);
+                    } else {
+                        return randomDamage(0.05);
+                    }
+                }
+            },
+            {
+                title: "Avoid the fire",
+                chance: 1,
+                action: "Probably for the best"
+            }]
+    },
+    {
         title: "You have found a wishing orb!",
         background: "dungeon.png",
         item: "orb.png",
