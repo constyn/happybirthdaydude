@@ -1,1 +1,1 @@
-angular.module('hb', []);
+angular.module('hb', ['angular-svg-round-progressbar']);

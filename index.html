@@ -9,17 +9,20 @@
 </head>
 <body style="{{getBackground()}}" ng-controller="MainController">
 
-<div class="progress">
-    <div class="progress-bar progress-bar-striped active progress-bar-danger" role="progressbar" aria-valuenow="{{getProgress()}}" aria-valuemin="0" aria-valuemax="100" style="width: {{getProgress()}}%;">
-        {{getProgress()}}%
+<div class="progress" style="height:3px;">
+    <div class="progress-bar progress-bar-danger" role="progressbar"
+         aria-valuenow="{{getProgress()}}" aria-valuemin="0" aria-valuemax="100" style="width: {{getProgress()}}%;">
+
     </div>
 </div>
 <div class="container-fluid detail">
 
-    <span class="row">
+    <div style="margin-bottom: 20px;">
         <span class="pull-left menu-item" ng-click="restart()"><i class="glyphicon glyphicon-remove"></i></span>
         <span class="pull-right menu-item" ng-click="showStats()"><i class="glyphicon glyphicon-stats"></i></span>
-    </span>
+        <span class="clearfix"></span>
+    </div>
+
     <span class="row">
         <span class="bordered col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text large text-center">
             <span>{{event.title}}</span>
@@ -28,13 +31,14 @@
         <div class="col-xs-12 text-center ">
             <div class="item bordered" style="{{getItem()}}"></div>
         </div>
-
+        <span class="clearfix"></span>
     </span>
 
     <div class="clearfix"></div>
 
     <div class="row" style="position: absolute; bottom: 2px; left: 2px; right: 2px;">
-            <span ng-repeat="option in event.options track by $index" ng-class="getOptionClass()" ng-click="select(option)">
+            <span ng-repeat="option in event.options track by $index" ng-class="getOptionClass()"
+                  ng-click="select(option)">
                 <div class="text bordered text-center" style="margin: 10px; padding: 10px;">
                     <span class="key">{{$index+1}}</span>
                     {{option.title}}
@@ -66,9 +70,39 @@
 
 <div id="status" class="modal text large text-center">
     <div class="modal-body">
+        <span class="col-xs-6">
+            <img src="assets/stats/coins.gif" style="width:30px; "/> Money: {{rawStat('money')}}
+        </span>
+
+        <span class="col-xs-6">
+           <img src="assets/stats/keys.gif" style="width:30px; "/> Keys: {{rawStat('keys')}}
+        </span>
+        <span class="clearfix"></span>
+        <hr>
         <div ng-repeat="stat in getStatKeys()">
-            <span class="col-xs-6 col-sm-4">
-                {{stat}}: {{getStat(stat)}}
+            <span class="col-xs-4 col-sm-3">
+                {{stat}}
+                 <div class="progress-wrapper">
+                     <div class="prog" ng-style="getStyle()">
+                         <img src="assets/stats/{{stat}}.gif" style="width:30px; "/>
+                     </div>
+                     <round-progress
+                             max="1"
+                             current="getStat(stat)"
+                             color="#cc0000"
+                             bgcolor="#ffffff"
+                             radius="30"
+                             stroke="10"
+                             semi="false"
+                             rounded="false"
+                             clockwise="true"
+                             responsive="false"
+                             duration="800"
+                             animation="easeInOutQuart"
+                             animation-delay="0">
+
+                     </round-progress>
+                 </div>
             </span>
 
         </div>
@@ -97,6 +131,7 @@
 <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 <script src="libs/angularjs/angular.min.js"></script>
 <script src="libs/seed.js"></script>
+<script src="libs/round.progress.js"></script>
 
 
 <script src="src/generators.js"></script>
@@ -112,6 +147,7 @@
 
 <script src="src/hbd.js"></script>
 <script src="src/hb.module.js"></script>
+<script src="src/stats.directives.js"></script>
 <script src="src/hb.controller.js"></script>
 </body>
 </html>

@@ -38,17 +38,12 @@ function MainController($scope, $timeout) {
         } else {
             result = chance;
         }
-        var passed = Math.random() < result;
-        if (passed) {
-            console.log('passed with', result);
-        }
-        return passed;
+        return Math.random() < result;
     }
 
     //Because of the seed we need to "restore" the randomness progress
     for (var i = 0; i < stats.progress * 500; i++) {
-        console.log(Math.random());
-
+        Math.random();
     }
 
     function centerModals() {
@@ -75,8 +70,6 @@ function MainController($scope, $timeout) {
 
                 if (random && checkIfPassed(random.chance)) {
                     event = random;
-                    console.log("Ticks:", days);
-                    console.log("Event:", event);
                 }
             } catch (e) {
                 if (days > 5000) {
@@ -202,16 +195,16 @@ function MainController($scope, $timeout) {
 
     $scope.getStatKeys = function () {
         return _.keys(stats).filter(function (item) {
-            return (item !== "currentLocation" && item !== "location" && item !== "items")
+            return (["currentLocation", "location", "items", "age", "money", "boss", "keys"].indexOf(item) === -1);
         });
     };
 
     $scope.getStat = function (item) {
-        if (item === "age") {
-            return Math.round(stats.age / 365);
-        } else {
-            return num(stats[item]);
-        }
+        return num(stats[item]);
+    };
+
+    $scope.rawStat = function (item) {
+        return stats[item];
     };
 
     $scope.getProgress = function () {

@@ -12,7 +12,6 @@ var initialStats = {
     currentLocation: 0,
     location: 0,
     happyness: 0.6,
-    evil: 0,
     keys: 1,
     defence: 0.1,
     attack: 0.1,

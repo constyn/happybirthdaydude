@@ -1,7 +1,6 @@
 .text {
     font-family: 'Amatic SC', cursive;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #000000;
+    color: #FFFFFF;
     font-size: 38px;
 
 }
@@ -14,15 +13,19 @@
     .key {
         display: none;
     }
+
+    .item {
+        width: 80px !important;
+        height: 80px !important;
+    }
 }
 
 .bordered {
-    border: 1px solid rgba(0, 0, 0, 0.6);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 1);
+    background-color: rgba(0,0,0,0.6);
 }
 
 .text.full-bg {
-    background-color: rgba(255, 255, 255, 1);
     padding: 20px;
 
 }
@@ -30,14 +33,14 @@
 .menu-item {
     font-size: 40px;
     padding: 10px;
-    color: #000000;
-    background-color: rgba(255, 255, 255, 0.6);
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .key {
-
-    border: 1px solid rgba(64, 64, 64, 0.5);
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+    border: 1px solid #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.3);
     padding: 1px 10px;
     width: 40px;
     height: 40px;
@@ -78,4 +81,28 @@
 
 .small-padding {
     padding: 10px;
+}
+
+.progress-wrapper {
+    position: relative;
+}
+.prog {
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    width: 100%;
+    text-align: center;
+}
+
+
+.modal-backdrop {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #000000;
+}
+
+.modal-backdrop.in {
+    opacity:0.9;
 }
