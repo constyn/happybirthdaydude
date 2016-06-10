@@ -1,5 +1,31 @@
 var mountains = [
     {
+        title: "The Mountain Guardian!",
+        background: "mountains/top.png",
+        item: "mountains/soldie3.gif",
+        chance: function (stats) {
+            return stats.boss;
+        },
+        options: [
+            {
+                title: "Fight",
+                chance: 1,
+                action: function (success, stats) {
+                    fight(stats, {health: 0.6, defence: 0.2, attack: 0.4});
+                    if (stats.health > 0) {
+                        stats.attack += 0.1;
+                        stats.defence += 0.1;
+                        stats.boss = 0;
+                        stats.progress = 0;
+                        randomLoot(stats);
+                        return "You defeated the Mountain Guardian!";
+                    } else {
+                        return "You are defeated"
+                    }
+                }
+            }]
+    },
+    {
         title: "Welcome to my cavern tavern. How can I help you?",
         background: "intavern.gif",
         item: "clerk.gif",

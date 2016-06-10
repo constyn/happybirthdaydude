@@ -16,6 +16,7 @@ var woods = [
                         stats.attack += 0.15;
                         stats.defence += 0.1;
                         stats.boss = 0;
+                        stats.location = 1;
                         stats.progress = 0;
                         randomLoot(stats);
                         return "You defeated the Forest Guardian!";
@@ -199,102 +200,5 @@ var woods = [
                 }
             }
         ]
-    },
-    {
-        title: "You stumble upon an opened chest",
-        background: "forest/forest_1.png",
-        item: "chest.png",
-        chance: function (stats) {
-            return 0.05 * stats.luck;
-        },
-        options: [
-            {
-                title: "Seek inside the chest",
-                chance: function (stats) {
-                    return 1;//stats.luck;
-                },
-                action: function (success, stats) {
-                    if (success) {
-                        if (Math.random() > stats.luck) {
-                            var money = Math.round(Math.random() * 3);
-                            stats.money += money;
-                            return "You have found " + money + " coins";
-                        } else if (Math.random() > stats.luck) {
-                            stats.keys += 1;
-                            return "You have found 1 key";
-                        } else {
-                            return "The chest is empty";
-                        }
-                    } else {
-                        return "The chest is empty."
-                    }
-                }
-            },
-            {
-                title: "Ignore the chest not knowing what is holding",
-                chance: 1,
-                action: function (success, stats) {
-                    return "You leave the chest behind";
-                }
-            }
-        ]
-    },
-
-    {
-        title: "You stumble upon a chest. The chest is locked with a key",
-        background: "forest/forest_1.png",
-        item: "chest.png",
-        chance: function (stats) {
-            return 0.1 * stats.luck;
-        },
-        options: [
-            {
-                title: "Unlock the chest",
-                chance: function (stats) {
-                    return stats.keys > 0;
-                },
-                action: function (success, stats) {
-                    if (success) {
-                        stats.keys--;
-
-                        if (Math.random() < 0.8) {
-
-                            if (Math.random() < 0.8 * stats.luck) {
-                                var money = Math.round(Math.random() * 5);
-                                stats.money += money;
-                                return "You have found " + money + " coins";
-                            } else if (Math.random() < 0.6 * status.luck) {
-                                var keys = Math.round(Math.random() * 2);
-                                stats.keys += keys;
-                                return "You have found " + keys + " keys";
-                            } else {
-                                stats.knowledge += 0.03;
-                                return "The chest contained knowledge scroll. You are wiser.";
-                            }
-
-                        } else {
-                            if (Math.random() > stats.luck) {
-                                stats.health -= 0.03;
-                                return "The chest released poisonous gas. You feel sick";
-                            } else {
-                                stats.money += 1;
-                                return "You have found a single coin."
-                            }
-                        }
-
-                    } else {
-                        return "You do not have a key to unlock the chest"
-                    }
-                }
-            },
-            {
-                title: "Ignore the chest not knowing what is holding",
-                chance: 1,
-                action: function (success, stats) {
-                    return "You leave the chest behind";
-                }
-            }
-        ]
     }
-
 ];
