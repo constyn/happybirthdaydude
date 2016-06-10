@@ -12,6 +12,10 @@ function guid() {
     return s4();
 }
 
+function pickFrom(arr) {
+    return arr[Math.round(Math.random() * arr.length)];
+}
+
 
 function prepareSeed(reset) {
     var seed;
@@ -27,6 +31,50 @@ function prepareSeed(reset) {
     Math.seedrandom(seed);
 }
 prepareSeed();
+
+
+function generateOrbChances() {
+
+    var minAmount = 0.05;
+    var maxAmount = 0.15;
+
+    function resetChance() {
+        var item = {};
+        var increase = pickFrom(skills);
+        var decrease;
+        while (decrease == undefined) {
+            var pick2 = pickFrom(skills);
+            if (pick2 !== increase) {
+                decrease = pick2;
+            }
+        }
+
+        var increaseAmount = round(minAmount + (Math.random() * (maxAmount - minAmount)));
+        var decreaseAmount = round(minAmount + (Math.random() * (maxAmount - minAmount)));
+
+        item.title = "+" + increaseAmount + " " + increase + "; -" + decreaseAmount + " " + decrease;
+        item.chance = 1;
+        item.action = function (success, stats) {
+            console.log('action', stats[decrease], decreaseAmount);
+            if (stats[decrease] >= decreaseAmount) {
+                stats[increase] += increaseAmount;
+                stats[decrease] -= decreaseAmount;
+                var newOne = resetChance();
+                this.title = newOne.title;
+                this.action = newOne.action;
+                return "Sometimes you have to do compromises";
+            } else {
+                stats.health -= 0.1;
+                return "You cannot afford the Orb decreases a 0.1 health points";
+            }
+        };
+
+        return item;
+    }
+
+    var arr = [resetChance(), resetChance(), resetChance()];
+    return arr;
+}
 
 function generateStore(location, numOpts) {
 
@@ -68,8 +116,6 @@ function generateStore(location, numOpts) {
                 idx = 0;
             }
         }
-
-        console.log("resetting to", option);
 
         storeItem.action = option.action;
         storeItem.title = option.title;

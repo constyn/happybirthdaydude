@@ -1,8 +1,26 @@
 var generic = [
     {
+        title: "IT'S DANGEROUS TO GO ALONE! TAKE THIS!",
+        background: "general/cave.gif",
+        item: "general/goalone.png",
+        chance: function (stats) {
+            return hasItem(stats, 57) ? 0 : 0.001
+        },
+        options: [
+            {
+                title: "Take it!",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.attack += 0.2;
+                    stats.items.push(57);
+                    return "You are stronger!"
+                }
+            }]
+    },
+    {
         title: "You found a cave",
         background: "cave2.png",
-        item: "rand/bats.gif",
+        item: "general/bats.gif",
         chance: 0.07,
         options: [
             {
@@ -56,5 +74,52 @@ var generic = [
                 }
             }
         ]
+    },
+    {
+        title: "The Gambler",
+        background: "general/mountain_trees.png",
+        item: "general/gambler.png",
+        chance: function (stats) {
+            return stats.progress < 0.4 ? 0.06 : 0.002;
+        },
+        options: [
+            {
+                title: "Pay 1 coin for a 10% random loot chance",
+                chance: 1,
+                action: function (success, stats) {
+                    if (stats.money > 0) {
+                        stats.money--;
+                        if (Math.random() > 0.1) {
+                            return randomLoot(stats, true);
+                        } else {
+                            return "LOOSER!"
+                        }
+                    } else {
+                        return "You cannot afford";
+                    }
+                }
+            }, {
+                title: "Pay 3 coins for a 50% chance of +1 increase of random skill.",
+                chance: 1,
+                action: function (success, stats) {
+                    if (stats.money >= 3) {
+                        stats.money -= 1;
+                        if (Math.random() > 0.5) {
+                            return randomIncrease(0.1);
+                        } else {
+                            return "LOOSER!"
+                        }
+                    } else {
+                        return "You cannot afford";
+                    }
+                }
+            },
+            {
+                title: "I do not gamble!",
+                chance: 1,
+                action: function (success, stats) {
+                    return "Gambling is for amateurs";
+                }
+            }]
     }
 ];

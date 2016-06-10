@@ -11,12 +11,13 @@ var mountains = [
                 title: "Fight",
                 chance: 1,
                 action: function (success, stats) {
-                    fight(stats, {health: 0.6, defence: 0.2, attack: 0.4});
+                    fight(stats, {health: 0.6, defence: 0.3, attack: 0.4});
                     if (stats.health > 0) {
                         stats.attack += 0.1;
                         stats.defence += 0.1;
                         stats.boss = 0;
                         stats.progress = 0;
+                        stats.location = 2;
                         randomLoot(stats);
                         return "You defeated the Mountain Guardian!";
                     } else {
@@ -28,9 +29,9 @@ var mountains = [
 
     {
         title: "Welcome to my cavern tavern. How can I help you?",
-        background: "intavern.gif",
-        item: "clerk.gif",
-        chance: 0.2,
+        background: "general/intavern.gif",
+        item: "general/clerk.gif",
+        chance: 0.12,
         options: generateStore(2)
     },
     {
@@ -148,5 +149,52 @@ var mountains = [
                 }
             }
         ]
-    }
+    },
+    {
+        title: "You found a goblin",
+        background: "forest/forest_4.jpeg",
+        item: "woods/goblin.png",
+        chance: function (stats) {
+            return stats.progress < 0.2 ? 0.1 : 0;
+        },
+        options: [
+            {
+                title: "Attack!",
+                chance: 1,
+                action: function (success, stats) {
+                    var health = stats.health;
+                    var turns = fight(stats, {health: 0.3, defence: 0.05, attack: 0.1});
+                    if (stats.health > 0) {
+                        if (Math.random() < stats.luck) {
+                            stats.attack += 0.005;
+                            stats.defence += 0.002;
+                        }
+
+                        return "After " + turns + " turns - you are victorious. You lost " + num(health - stats.health) + " health";
+                    }
+                }
+            }, {
+                title: "Run!",
+                chance: function (stats) {
+                    return stats.luck + stats.defence;
+                },
+                action: function (success, stats) {
+                    if (success) {
+                        return "You managed to escape unobserved. (The shame)";
+                    } else {
+                        var health = stats.health;
+                        var turns = fight(stats, {health: 0.1, defence: 0.05, attack: 0.1});
+                        if (stats.health > 0) {
+                            if (Math.random() < stats.luck) {
+                                stats.attack += 0.005;
+                                stats.defence += 0.002;
+                            }
+
+                            return "After " + turns + " turns - you survived the attack victoriously. You lost " + num(health - stats.health) + " health";
+                        }
+                    }
+                }
+            }
+        ]
+    },
 ];

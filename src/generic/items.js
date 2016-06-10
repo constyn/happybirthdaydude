@@ -1,8 +1,39 @@
 var items = [
     {
+        title: "You have found the gauntlet",
+        background: "general/road.jpg",
+        item: "the_gauntlet.png",
+        chance: function (stats) {
+            return hasItem(stats, 55) ? 0 : 0.005;
+        },
+        options: [
+            {
+                title: "Pick It up",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.items.push(55);
+                    if (stats.attack > 0.2) {
+                        stats.attack -= 0.2;
+                        stats.defence += 0.2;
+                        return "The gauntlet will protect you from attacks."
+                    } else {
+                        return "You are not worthy for the gauntlet."
+                    }
+                }
+            },
+            {
+                title: "Ignore",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.items.push(55);
+                    return "You leave the gauntlet behind - wondering how it would have been."
+                }
+            }]
+    },
+    {
         title: "My leader heard about your actions. He wants to speak with you",
         background: "zen_garden.png",
-        item: "vase.gif",
+        item: "general/vase.gif",
         chance: function (stats) {
             return stats.progress > 0.95 && stats.boss === 0 ? 1 : 0;
         },
@@ -50,38 +81,8 @@ var items = [
         title: "You have found a wishing orb!",
         background: "dungeon.png",
         item: "orb.png",
-        chance: 0.05,
-        options: [
-            {
-                title: "-0.4 knowledge, +0.1 health",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.knowledge -= 0.4;
-                    stats.health += 0.1;
-                    return "Sometimes you have to do compromises";
-                }
-            },
-            {
-                title: "-0.1 attack, -0.1 defence, +0.1 luck",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.attack -= 0.1;
-                    stats.defence -= 0.1;
-                    stats.luck += 0.1;
-                    return "Sometimes you have to do compromises";
-                }
-            },
-            {
-                title: "-0.3 happyness, +0.1 defence, +0.1 offence",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.happyness -= 0.3;
-                    stats.defence += 0.1;
-                    stats.attack += 0.1;
-                    return "Sometimes you have to do compromises";
-                }
-            }
-        ]
+        chance: 1, //0.05,
+        options: generateOrbChances()
     },
     {
         title: "You found The Bag of Holding. A magical object that can hold everything inside of it. It pulls in everything around it.",

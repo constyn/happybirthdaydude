@@ -28,8 +28,8 @@ var woods = [
     },
     {
         title: "What would you like to buy?",
-        background: "intavern.gif",
-        item: "clerk.gif",
+        background: "general/intavern.gif",
+        item: "general/clerk.gif",
         chance: 0.1,
         options: generateStore(1)
     },
@@ -60,7 +60,7 @@ var woods = [
     {
         title: "You found a pack of 4 goblins",
         background: "forest/forest_4.jpeg",
-        item: "goblin.png",
+        item: "woods/goblin.png",
         chance: 0.12,
         options: [
             {
@@ -105,7 +105,7 @@ var woods = [
     {
         title: "You found a goblin",
         background: "forest/forest_4.jpeg",
-        item: "goblin.png",
+        item: "woods/goblin.png",
         chance: 0.2,
         options: [
             {

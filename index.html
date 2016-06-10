@@ -84,7 +84,7 @@
                 {{stat}}
                  <div class="progress-wrapper">
                      <div class="prog" ng-style="getStyle()">
-                         <img src="assets/stats/{{stat}}.gif" style="width:30px; "/>
+                         <img ng-src="assets/stats/{{stat}}.gif" style="width:30px; "/>
                      </div>
                      <round-progress
                              max="1"
@@ -134,6 +134,7 @@
 <script src="libs/round.progress.js"></script>
 
 
+<script src="src/defs.js"></script>
 <script src="src/generators.js"></script>
 
 <script src="src/generic/generic.js"></script>
@@ -143,6 +144,7 @@
 <script src="src/logic/fight.js"></script>
 <script src="src/worlds/woods.js"></script>
 <script src="src/worlds/mountains.js"></script>
+<script src="src/worlds/river.js"></script>
 
 
 <script src="src/hbd.js"></script>

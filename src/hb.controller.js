@@ -72,6 +72,7 @@ function MainController($scope, $timeout) {
                     event = random;
                 }
             } catch (e) {
+                console.log(e);
                 if (days > 5000) {
                     stats.location = 0;
                 }
@@ -125,10 +126,11 @@ function MainController($scope, $timeout) {
             if ($scope.result !== undefined) {
                 $scope.killMessage = $scope.result;
             } else {
-                restartLogic();
+                console.log("restart logic...");
                 $scope.killMessage = "This is the end of our hero!";
             }
             $("#killed").modal('show');
+            restartLogic();
         }
 
 
@@ -177,6 +179,7 @@ function MainController($scope, $timeout) {
     };
 
     $scope.restart = function (bool) {
+        console.log("Restart", bool);
         if (bool === undefined) {
             $('#restart').modal('show');
         } else {
@@ -185,6 +188,7 @@ function MainController($scope, $timeout) {
     };
 
     function restartLogic() {
+        console.log('restart logic called');
         window.localStorage.clear();
         prepareSeed(true);
         stats = _.clone(initialStats);
