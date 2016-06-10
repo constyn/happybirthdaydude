@@ -19,7 +19,7 @@ var generic = [
     },
     {
         title: "You found a cave",
-        background: "cave2.png",
+        background: "general/cave2.png",
         item: "general/bats.gif",
         chance: 0.07,
         options: [
@@ -46,7 +46,7 @@ var generic = [
     {
         title: "The night is coming - you should rest",
         background: "mountains/mtn5.png",
-        item: "zzz.gif",
+        item: "general/zzz.gif",
         chance: function (stats) {
             return stats.progress * 10 % 1 > 0.8 ? 1 : 0;
         },

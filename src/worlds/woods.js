@@ -150,7 +150,7 @@ var woods = [
     {
         title: "You stumble upon a strange mushroom",
         background: "forest/forest_1.png",
-        item: "mushroomie.gif",
+        item: "general/mushroomie.gif",
         chance: function (stats) {
             return 0.06;
         },

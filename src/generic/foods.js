@@ -2,8 +2,8 @@ var foods = [
 
     {
         title: "You have found a container full of \"Antinevralgic\"",
-        background: "hospital.gif",
-        item: "pills.png",
+        background: "general/hospital.gif",
+        item: "general/pills.png",
         chance: 0.08,
         options: [
             {
@@ -26,7 +26,7 @@ var foods = [
     {
         title: "You have found an apple",
         background: "forest/forest_6.jpg",
-        item: "apple.png",
+        item: "general/apple.png",
         chance: 0.1,
         options: [
             {

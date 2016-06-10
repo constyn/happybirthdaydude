@@ -2,7 +2,7 @@ var items = [
     {
         title: "You have found the gauntlet",
         background: "general/road.jpg",
-        item: "the_gauntlet.png",
+        item: "collectables/the_gauntlet.png",
         chance: function (stats) {
             return hasItem(stats, 55) ? 0 : 0.005;
         },
@@ -32,7 +32,7 @@ var items = [
     },
     {
         title: "My leader heard about your actions. He wants to speak with you",
-        background: "zen_garden.png",
+        background: "general/zen_garden.png",
         item: "general/vase.gif",
         chance: function (stats) {
             return stats.progress > 0.95 && stats.boss === 0 ? 1 : 0;
@@ -56,8 +56,8 @@ var items = [
     },
     {
         title: "The enchanted offers you a 50-50 choice",
-        background: "pool_cave.png",
-        item: "fogo.gif",
+        background: "general/pool_cave.png",
+        item: "general/fogo.gif",
         chance: 0.02,
         options: [
             {
@@ -79,15 +79,15 @@ var items = [
     },
     {
         title: "You have found a wishing orb!",
-        background: "dungeon.png",
-        item: "orb.png",
-        chance: 1, //0.05,
+        background: "general/dungeon.png",
+        item: "general/orb.png",
+        chance: 0.05,
         options: generateOrbChances()
     },
     {
         title: "You found The Bag of Holding. A magical object that can hold everything inside of it. It pulls in everything around it.",
-        background: "item_forest.png",
-        item: "bagofholdings.png",
+        background: "general/item_forest.png",
+        item: "general/bagofholdings.png",
         chance: function (stats) {
             return 0.2 * stats.luck;
         },
@@ -134,7 +134,7 @@ var items = [
     {
         title: "You stumble upon an opened chest",
         background: "forest/forest_1.png",
-        item: "chest.png",
+        item: "general/chest.png",
         chance: function (stats) {
             return 0.05 * stats.luck;
         },
@@ -174,7 +174,7 @@ var items = [
     {
         title: "You stumble upon a chest. The chest is locked with a key",
         background: "forest/forest_1.png",
-        item: "chest.png",
+        item: "general/chest.png",
         chance: function (stats) {
             return 0.1 * stats.luck;
         },
