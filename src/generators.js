@@ -33,7 +33,7 @@ function generateStore(location, numOpts) {
     var _numOpts = numOpts || 2;
 
     function generateItem(minCost, randomCost, plusProd, strPre, who) {
-        var itemCost = Math.round(minCost + (randomCost * Math.random()) * ((location+1)*0.01));
+        var itemCost = Math.round(minCost + (randomCost * Math.random()) * ((location + 1) * 0.01));
         var itemPlus = round(plusProd * itemCost);
         return {
             title: strPre + ": +" + itemPlus + " " + who + "; -" + itemCost + " coins;",
@@ -42,6 +42,10 @@ function generateStore(location, numOpts) {
                 if (stats.money >= itemCost) {
                     stats.money -= itemCost;
                     stats[who] += itemPlus;
+
+
+                    resetObj(this);
+
                     return "You feel protected";
                 } else {
                     return "You cannot afford";
@@ -49,6 +53,26 @@ function generateStore(location, numOpts) {
             }
         }
 
+    }
+
+
+    function resetObj(storeItem) {
+        var option;
+        var idx = 0;
+        while (option == undefined) {
+            if (Math.random() < 1 / possibilities.length) {
+                option = possibilities[idx];
+            }
+            idx++;
+            if (idx > possibilities.length - 1) {
+                idx = 0;
+            }
+        }
+
+        console.log("resetting to", option);
+
+        storeItem.action = option.action;
+        storeItem.title = option.title;
     }
 
 
