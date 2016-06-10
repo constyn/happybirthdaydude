@@ -3,7 +3,7 @@ var generic = [
         title: "You found a cave",
         background: "cave2.png",
         item: "rand/bats.gif",
-        chance: 0.04,
+        chance: 0.07,
         options: [
             {
                 title: "Search inside",

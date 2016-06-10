@@ -2,6 +2,7 @@ function hasItem(item) {
     return stats.items.indexOf(item) !== -1;
 }
 
+
 var initialStats = {
     age: 365 * 15,
     health: 0.9,
@@ -30,7 +31,7 @@ function correctStats(stats) {
     stats.happyness = stats.happyness > 1 ? 1 : stats.happyness;
     stats.health = stats.health > 2 ? 2 : stats.health;
 
-    _.each(['luck', 'defence', 'attack'], function(key){
+    _.each(['luck', 'defence', 'attack'], function (key) {
         stats[key] = stats[key] > 1 ? 1 : stats[key];
         stats[key] = stats[key] < 0 ? 0 : stats[key];
     });

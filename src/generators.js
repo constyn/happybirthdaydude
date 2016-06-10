@@ -2,63 +2,74 @@ function round(val) {
     return Math.round(val * 100) / 100;
 }
 
-function generateStore(location) {
+function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
 
-    var armorCost = Math.round(10 + (5 * Math.random())) * location;
-    var armorPlus = round(0.01 * armorCost);
-    var opt1 = {
-        title: "Armor; +" + armorPlus + " defence; -" + armorCost + " coins;",
-        chance: 1,
-        action: function (success, stats) {
+    return s4();
+}
 
-            if (stats.money >= armorCost) {
-                stats.money -= armorCost;
-                stats.defence += armorPlus;
-                return "You feel protected";
-            } else {
-                return "You cannot afford";
+
+function prepareSeed(reset) {
+    var seed;
+    if (reset) {
+        seed = guid();
+        window.localStorage.setItem('seed', seed);
+    } else {
+        seed = window.localStorage.getItem('seed');
+        if (!seed) {
+            prepareSeed(true);
+        }
+    }
+    Math.seedrandom(seed);
+}
+prepareSeed();
+
+function generateStore(location, numOpts) {
+
+    var _numOpts = numOpts || 2;
+
+    function generateItem(minCost, randomCost, plusProd, strPre, who) {
+        var itemCost = Math.round(minCost + (randomCost * Math.random()) * ((location+1)*0.01));
+        var itemPlus = round(plusProd * itemCost);
+        return {
+            title: strPre + ": +" + itemPlus + " " + who + "; -" + itemCost + " coins;",
+            chance: 1,
+            action: function (success, stats) {
+                if (stats.money >= itemCost) {
+                    stats.money -= itemCost;
+                    stats[who] += itemPlus;
+                    return "You feel protected";
+                } else {
+                    return "You cannot afford";
+                }
             }
         }
-    };
 
-    var ofenceCost = Math.round(10 + (10 * Math.random())) * location;
-    var ofencePlus = round(0.01 * ofenceCost);
-    var opt2 = {
-        title: "Attack; +" + ofencePlus + " defence; -" + ofenceCost + " coins;",
-        chance: 1,
-        action: function (success, stats) {
-            console.log(stats.money, ofenceCost);
-            if (stats.money >= ofenceCost) {
-                stats.money -= ofenceCost;
-                stats.attack += ofencePlus;
-                return "You feel stronger";
-            } else {
-                return "You cannot afford";
-            }
-        }
-    };
+    }
 
-    var healthCost = Math.round(10 + (10 * Math.random()));
-    var healthPlus = round(0.01 * healthCost);
-    var opt3 = {
-        title: "Health; +" + healthPlus + " health; -" + healthCost + " coins;",
-        chance: 1,
-        action: function (success, stats) {
-            console.log(stats.money, healthCost);
-            if (stats.money >= healthCost) {
-                stats.money -= healthCost;
-                stats.health += healthPlus;
-                return "You feel healed";
-            } else {
-                return "You cannot afford";
-            }
-        }
-    };
 
-    var possibilities = [opt1, opt2, opt3];
+    var opt1 = generateItem(10, 5, 0.01, "Armor", "defence");
+    var opt2 = generateItem(10, 10, 0.01, "Melee", "attack");
+
+
+    var opt3 = generateItem(5, 5, 0.02, "Light Shield", "defence");
+    var opt4 = generateItem(15, 15, 0.02, "Heavy Shield", "defence");
+
+    var opt5 = generateItem(5, 5, 0.02, "Light Sword", "attack");
+    var opt6 = generateItem(15, 15, 0.02, "Long Sword", "attack");
+
+    var opt7 = generateItem(10, 10, 0.02, "Health", "health");
+    var opt8 = generateItem(2, 2, 0.01, "Apple", "health");
+
+
+    var possibilities = [opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8];
     var options = [];
     var idx = 0;
-    while (options.length < 2) {
+    while (options.length < _numOpts) {
         if (Math.random() < 1 / possibilities.length) {
             options.push(possibilities[idx]);
         }

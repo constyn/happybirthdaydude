@@ -26,7 +26,6 @@ if (localStats) {
 
 function MainController($scope, $timeout) {
 
-
     var event;
 
     $(".days").hide();
@@ -46,6 +45,12 @@ function MainController($scope, $timeout) {
         return passed;
     }
 
+    //Because of the seed we need to "restore" the randomness progress
+    for (var i = 0; i < stats.progress * 500; i++) {
+        console.log(Math.random());
+
+    }
+
     function centerModals() {
         $timeout(function () {
             $('.modal').each(function (i) {
@@ -60,8 +65,7 @@ function MainController($scope, $timeout) {
     function tick() {
         console.log("----------[ Tick ]-----------");
         window.localStorage.setItem('stats', JSON.stringify(stats));
-
-
+        event = undefined;
 
         var days = 0;
         while (event === undefined) {
@@ -87,7 +91,6 @@ function MainController($scope, $timeout) {
         $scope.days = days;
         stats.age += days;
         stats.progress += days / 500;
-
 
 
         $(".days").fadeIn(fadeIn).fadeOut(fadeOut, function () {
@@ -129,6 +132,7 @@ function MainController($scope, $timeout) {
             if ($scope.result !== undefined) {
                 $scope.killMessage = $scope.result;
             } else {
+                restartLogic();
                 $scope.killMessage = "This is the end of our hero!";
             }
             $("#killed").modal('show');
@@ -155,7 +159,6 @@ function MainController($scope, $timeout) {
             }
         } else if (val == 30) {
             $timeout(function () {
-                event = undefined;
                 tick();
             });
         } else {
@@ -184,12 +187,18 @@ function MainController($scope, $timeout) {
         if (bool === undefined) {
             $('#restart').modal('show');
         } else {
-            window.localStorage.clear();
-            stats = initialStats;
-            event = undefined;
-            tick();
+            restartLogic();
         }
     };
+
+    function restartLogic() {
+        window.localStorage.clear();
+        prepareSeed(true);
+        stats = _.clone(initialStats);
+
+        tick();
+
+    }
 
     $scope.getStatKeys = function () {
         return _.keys(stats).filter(function (item) {
@@ -208,7 +217,6 @@ function MainController($scope, $timeout) {
 
     tick();
     $('#result').on('hidden.bs.modal', function () {
-        event = undefined;
         $timeout(function () {
             isResult = false;
             tick();
