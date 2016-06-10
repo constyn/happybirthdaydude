@@ -25,6 +25,7 @@ var mountains = [
                 }
             }]
     },
+
     {
         title: "Welcome to my cavern tavern. How can I help you?",
         background: "intavern.gif",

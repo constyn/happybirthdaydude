@@ -214,6 +214,14 @@ function MainController($scope, $timeout) {
         }
     };
 
+    $scope.getProgress = function () {
+        var val = Math.round(stats.progress * 100);
+        if (val > 100) {
+            val = 100;
+        }
+        return val;
+    };
+
 
     tick();
     $('#result').on('hidden.bs.modal', function () {

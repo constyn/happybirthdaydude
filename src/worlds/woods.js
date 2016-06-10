@@ -30,7 +30,7 @@ var woods = [
         title: "What would you like to buy?",
         background: "intavern.gif",
         item: "clerk.gif",
-        chance: 0.2,
+        chance: 0.1,
         options: generateStore(1)
     },
     {
@@ -113,7 +113,7 @@ var woods = [
                 chance: 1,
                 action: function (success, stats) {
                     var health = stats.health;
-                    var turns = fight(stats, {health: 0.1, defence: 0.05, attack: 0.1});
+                    var turns = fight(stats, {health: 0.3, defence: 0.05, attack: 0.1});
                     if (stats.health > 0) {
                         if (Math.random() < stats.luck) {
                             stats.attack += 0.005;
