@@ -41,11 +41,13 @@ function MainController($scope, $timeout) {
     for (var i = 0; i < stats.progress * 500; i++) {
         Math.random();
     }
+    var isIntro = false;
 
     function tick() {
         if (stats.progress == 0) {
             $scope.result = pickFrom(messages);
             $('#result').modal('show');
+            isIntro = true;
         }
         console.log("----------[ Tick ]-----------");
         window.localStorage.setItem('stats', JSON.stringify(stats));
@@ -201,9 +203,12 @@ function MainController($scope, $timeout) {
     tick();
 
     $(document).on('hidden.bs.modal', function (evt) {
+
         $timeout(function () {
             isResult = false;
-            tick();
+            if ($(evt.target).attr('id') !== "status") {
+                tick();
+            }
         }, 10);
     });
 

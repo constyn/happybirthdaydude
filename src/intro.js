@@ -3,5 +3,6 @@ var messages = [
     "Happy Birthday Dude! There are many paths to take within this game",
     "Happy Birthday Dude! There are many items related to your life",
     "Happy Birthday Dude! I had a lot of fun creating this game. I also realized that is quite hard to fine-tune",
-    "Happy Birthday Dude! Challenge Accepted!"
+    "Happy Birthday Dude! Challenge Accepted!",
+    "Happy Birthday Dude! You can use 1,2,3,s,ESC keys to play!"
 ];
