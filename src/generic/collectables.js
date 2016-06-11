@@ -58,7 +58,7 @@ var collectables = [
         item: "collectables/girl.png",
         chance: function (stats) {
             if (hasItem(stats, coll_items.girl)) {
-                if (Math.random() < 0.01) {
+                if (Math.random() < 0.08) {
                     stats.health += 0.05;
                     triggerItem('collectables/girl.png');
                 }
@@ -84,7 +84,7 @@ var collectables = [
         chance: function (stats) {
             // return hasItem(stats, coll_items.tomi) ? 0 : 0.006;
             if (hasItem(stats, coll_items.tomi)) {
-                if (Math.random() < 0.07) {
+                if (Math.random() < 0.1) {
                     stats.happyness += 0.1;
                     triggerItem('collectables/tomi.gif');
                     return 0;

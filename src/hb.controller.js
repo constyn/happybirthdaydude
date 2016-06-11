@@ -54,6 +54,10 @@ function MainController($scope, $timeout) {
     }
 
     function tick() {
+        if (stats.progress == 0) {
+            $scope.result = pickFrom(messages);
+            $('#result').modal('show');
+        }
         console.log("----------[ Tick ]-----------");
         window.localStorage.setItem('stats', JSON.stringify(stats));
         event = undefined;
@@ -207,8 +211,6 @@ function MainController($scope, $timeout) {
         if (val < 0) val = 0;
         return val;
     };
-
-
 
 
     tick();

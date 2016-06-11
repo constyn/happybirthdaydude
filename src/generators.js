@@ -13,7 +13,7 @@ function guid() {
 }
 
 function pickFrom(arr) {
-    return arr[Math.round(Math.random() * arr.length)];
+    return arr[Math.round(Math.random() * (arr.length-1))];
 }
 
 

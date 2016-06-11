@@ -51,7 +51,7 @@ var items = [
         title: "You have found a wishing orb!",
         background: "general/dungeon.png",
         item: "general/orb.png",
-        chance: 0.05,
+        chance: 0.08,
         options: generateOrbChances()
     },
     {
