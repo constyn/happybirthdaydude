@@ -1,4 +1,33 @@
 var generic = [
+    {
+        title: "You found a bicycle - you can reach the end faster",
+        background: "general/road.jpg",
+        item: "general/bike.png",
+        chance: function (stats) {
+            return stats.progress < 0.7 ? 0.08 : 0;
+        },
+        options: [
+            {
+                title: "Ride it",
+                chance: 0.8,
+                action: function (success, stats) {
+                    if (success) {
+                        stats.progress += 0.3;
+                        return "You reached to a point where you cannot use your bike. Back to walking - it was fun";
+                    } else {
+                        stats.progress += 0.1;
+                        stats.health -= 0.02;
+                        return "You fell with the bike. but at least you ride it a little bit"
+                    }
+                }
+            },
+            {
+                title: "Skip! It is too dangerous",
+                chance: 1,
+                action: "Well, probably for the best"
+            }
+        ]
+    },
 
     {
         title: "You found a cave",
