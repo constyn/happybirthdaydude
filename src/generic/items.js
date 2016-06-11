@@ -1,35 +1,5 @@
 var items = [
-    {
-        title: "You have found the gauntlet",
-        background: "general/road.jpg",
-        item: "collectables/the_gauntlet.png",
-        chance: function (stats) {
-            return hasItem(stats, 55) ? 0 : 0.005;
-        },
-        options: [
-            {
-                title: "Pick It up",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.items.push(55);
-                    if (stats.attack > 0.2) {
-                        stats.attack -= 0.2;
-                        stats.defence += 0.2;
-                        return "The gauntlet will protect you from attacks."
-                    } else {
-                        return "You are not worthy for the gauntlet."
-                    }
-                }
-            },
-            {
-                title: "Ignore",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.items.push(55);
-                    return "You leave the gauntlet behind - wondering how it would have been."
-                }
-            }]
-    },
+
     {
         title: "My leader heard about your actions. He wants to speak with you",
         background: "general/zen_garden.png",

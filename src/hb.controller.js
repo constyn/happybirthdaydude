@@ -7,14 +7,10 @@ function num(val) {
 }
 
 var stats = _.clone(initialStats);
-var fadeIn = 1400;
-var fadeOut = 1000;
+var fadeIn = 200;
+var fadeOut = 100;
 var isResult = false;
 
-if (devMode) {
-    fadeIn /= 100;
-    fadeOut /= 100;
-}
 
 //window.localStorage.clear();
 
@@ -47,14 +43,14 @@ function MainController($scope, $timeout) {
     }
 
     function centerModals() {
-        $timeout(function () {
-            $('.modal').each(function (i) {
-                var body = $(this).find('.modal-body');
-                var top = Math.round(($(document.body).height() - body.height()) / 2);
-                top = top > 0 ? top : 0;
-                body.css("margin-top", top);
-            });
-        }, 10);
+        //$timeout(function () {
+        //    $('.modal').each(function (i) {
+        //        var body = $(this).find('.modal-body');
+        //        var top = Math.round(($(document.body).height() - body.height()) / 2);
+        //        top = top > 0 ? top : 0;
+        //        body.css("margin-top", top);
+        //    });
+        //}, 100);
     }
 
     function tick() {
@@ -72,7 +68,6 @@ function MainController($scope, $timeout) {
                     event = random;
                 }
             } catch (e) {
-                console.log(e);
                 if (days > 5000) {
                     stats.location = 0;
                 }
@@ -86,10 +81,7 @@ function MainController($scope, $timeout) {
         stats.age += days;
         stats.progress += days / 500;
 
-
-        $(".days").fadeIn(fadeIn).fadeOut(fadeOut, function () {
-            $('.detail').fadeIn(fadeIn / 7);
-        });
+        $('.detail').fadeIn(fadeIn);
 
     }
 
@@ -192,9 +184,7 @@ function MainController($scope, $timeout) {
         window.localStorage.clear();
         prepareSeed(true);
         stats = _.clone(initialStats);
-
         tick();
-
     }
 
     $scope.getStatKeys = function () {
@@ -213,14 +203,16 @@ function MainController($scope, $timeout) {
 
     $scope.getProgress = function () {
         var val = Math.round(stats.progress * 100);
-        if (val > 100) {
-            val = 100;
-        }
+        if (val > 100) val = 100;
+        if (val < 0) val = 0;
         return val;
     };
 
 
+
+
     tick();
+
     $('#result').on('hidden.bs.modal', function () {
         $timeout(function () {
             isResult = false;

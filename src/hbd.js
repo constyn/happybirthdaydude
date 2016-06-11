@@ -1,9 +1,14 @@
+
+var events = {
+    "0": [].concat(woods).concat(items).concat(foods).concat(generic).concat(collectables),
+    "1": [].concat(mountains).concat(items).concat(foods).concat(generic).concat(collectables),
+    "2": [].concat(river).concat(items).concat(foods).concat(generic).concat(collectables)
+};
+
+
 function hasItem(stats, item) {
     return stats.items.indexOf(item) !== -1;
 }
-
-
-
 
 function correctStats(stats) {
     if (stats.happyness < 0) {
@@ -21,16 +26,6 @@ function correctStats(stats) {
     });
 
 }
-
-var devMode = true;
-var events = {
-    "0": [].concat(woods).concat(items).concat(foods).concat(generic),
-    "1": [].concat(mountains).concat(items).concat(foods).concat(generic),
-    "2": [].concat(river).concat(items).concat(foods).concat(generic)
-};
-
-
-
 
 function randomLoot(stats, gambling) {
 
@@ -62,10 +57,7 @@ function randomLoot(stats, gambling) {
         stats.defence += 0.01;
     }
 
-
     return result;
-
-
 }
 
 

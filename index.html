@@ -50,15 +50,18 @@
     </span>
 </div>
 
-<div id="result" class="modal">
+<div id="result" class="modal fade text ">
     <div class="modal-body">
         <div class="text full-bg large text-center">
             {{result}}
         </div>
     </div>
+    <div class="modal-footer">
+        <div class="button pull-right" data-dismiss="modal">CLOSE</div>
+    </div>
 </div>
 
-<div id="restart" class="modal text  large text-center">
+<div id="restart" class="modal fade text  large text-center">
     <div class="modal-body">
         Are you sure you want to restart?
     </div>
@@ -68,7 +71,7 @@
     </div>
 </div>
 
-<div id="status" class="modal text large text-center">
+<div id="status" class="modal fade text large text-center">
     <div class="modal-body">
         <span class="col-xs-6">
             <img src="assets/stats/coins.gif" style="width:30px; "/> Money: {{rawStat('money')}}
@@ -113,7 +116,7 @@
     </div>
 </div>
 
-<div id="killed" class="modal text large text-center">
+<div id="killed" class="modal fade text large text-center">
     <div class="modal-body">
         {{killMessage}}
     </div>
@@ -122,9 +125,6 @@
     </div>
 </div>
 
-<div class="days bordered">
-    {{days}} Days Passed
-</div>
 
 <script src="libs/jquery/jquery.min.js"></script>
 <script src="libs/underscore/underscore-min.js"></script>
@@ -137,6 +137,7 @@
 <script src="src/defs.js"></script>
 <script src="src/generators.js"></script>
 
+<script src="src/generic/collectables.js"></script>
 <script src="src/generic/generic.js"></script>
 <script src="src/generic/items.js"></script>
 <script src="src/generic/foods.js"></script>

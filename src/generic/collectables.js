@@ -1,0 +1,115 @@
+var coll_items = {
+    gauntlet: 55,
+    tomi: 23,
+    girl: 42,
+    job: 43
+};
+
+var collectables = [
+    {
+        title: "You have found \"A Job\"",
+        background: "general/zen_garden.png",
+        item: "collectables/sclogo.png",
+        chance: function (stats) {
+            if (hasItem(stats, coll_items.job)) {
+                console.log("Has job");
+                if (Math.random() < 0.08) {
+                    console.log("gives money");
+                    stats.money += 2;
+                }
+                return 0;
+            } else {
+                return 1;//0.001;
+            }
+        },
+        options: [
+            {
+                title: "Accept the job",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.items.push(coll_items.job);
+                    return "A Job will bring you money";
+                }
+            }]
+    },
+    {
+        title: "You have found \"The Girl\"",
+        background: "general/zen_garden.png",
+        item: "collectables/girl.png",
+        chance: function (stats) {
+            if (hasItem(stats, coll_items.girl)) {
+                if (Math.random() < 0.01) {
+                    stats.health += 0.05;
+                }
+                return 0;
+            } else {
+                return 0.008;
+            }
+        },
+        options: [
+            {
+                title: "Fall in love",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.items.push(coll_items.girl);
+                    return "\"The Girl\" will be close to you at any time";
+                }
+            }]
+    },
+    {
+        title: "You have found Tomi",
+        background: "general/zen_garden.png",
+        item: "collectables/tomi.gif",
+        chance: function (stats) {
+            // return hasItem(stats, coll_items.tomi) ? 0 : 0.006;
+            if (hasItem(stats, coll_items.tomi)) {
+                if (Math.random() < 0.07) {
+                    stats.happyness += 0.1;
+                    return 0;
+                }
+            } else {
+                return 0.006;
+            }
+        },
+        options: [
+            {
+                title: "Take it in your journey",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.items.push(coll_items.tomi);
+                    return "Tomi will bring you happyness";
+                }
+            }]
+    },
+    {
+        title: "You have found the gauntlet",
+        background: "general/road.jpg",
+        item: "collectables/the_gauntlet.png",
+        chance: function (stats) {
+            return hasItem(stats, coll_items.gauntlet) ? 0 : 0.005;
+        },
+        options: [
+            {
+                title: "Pick It up",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.items.push(coll_items.gauntlet);
+                    if (stats.attack > 0.2) {
+                        stats.attack -= 0.2;
+                        stats.defence += 0.2;
+                        return "The gauntlet will protect you from attacks."
+                    } else {
+                        return "You are not worthy for the gauntlet."
+                    }
+                }
+            },
+            {
+                title: "Ignore",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.items.push(coll_items.gauntlet);
+                    return "You leave the gauntlet behind - wondering how it would have been."
+                }
+            }]
+    }
+];

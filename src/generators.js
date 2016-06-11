@@ -44,7 +44,7 @@ function generateOrbChances() {
         var decrease;
         while (decrease == undefined) {
             var pick2 = pickFrom(skills);
-            if (pick2 !== increase) {
+            if (pick2 !== undefined && pick2 !== increase) {
                 decrease = pick2;
             }
         }
