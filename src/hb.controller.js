@@ -42,17 +42,6 @@ function MainController($scope, $timeout) {
         Math.random();
     }
 
-    function centerModals() {
-        //$timeout(function () {
-        //    $('.modal').each(function (i) {
-        //        var body = $(this).find('.modal-body');
-        //        var top = Math.round(($(document.body).height() - body.height()) / 2);
-        //        top = top > 0 ? top : 0;
-        //        body.css("margin-top", top);
-        //    });
-        //}, 100);
-    }
-
     function tick() {
         if (stats.progress == 0) {
             $scope.result = pickFrom(messages);
@@ -122,7 +111,6 @@ function MainController($scope, $timeout) {
             if ($scope.result !== undefined) {
                 $scope.killMessage = $scope.result;
             } else {
-                console.log("restart logic...");
                 $scope.killMessage = "This is the end of our hero!";
             }
             $("#killed").modal('show');
@@ -175,7 +163,6 @@ function MainController($scope, $timeout) {
     };
 
     $scope.restart = function (bool) {
-        console.log("Restart", bool);
         if (bool === undefined) {
             $('#restart').modal('show');
         } else {
@@ -184,11 +171,9 @@ function MainController($scope, $timeout) {
     };
 
     function restartLogic() {
-        console.log('restart logic called');
         window.localStorage.clear();
         prepareSeed(true);
         stats = _.clone(initialStats);
-        tick();
     }
 
     $scope.getStatKeys = function () {
@@ -215,13 +200,15 @@ function MainController($scope, $timeout) {
 
     tick();
 
-    $('#result').on('hidden.bs.modal', function () {
+    $(document).on('hidden.bs.modal', function (evt) {
+        console.log(evt);
         $timeout(function () {
             isResult = false;
-            tick();
+            if ($(evt.target).attr('id') !== "killed") {
+                tick();
+            }
         }, 10);
     });
-    $(window).on('show.bs.modal', centerModals);
 
 
 }
