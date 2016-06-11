@@ -146,7 +146,7 @@ var items = [
         background: "forest/forest_1.png",
         item: "general/chest.png",
         chance: function (stats) {
-            return 0.1 * stats.luck;
+            return 0.2;
         },
         options: [
             {

@@ -10,6 +10,19 @@ function hasItem(stats, item) {
     return stats.items.indexOf(item) !== -1;
 }
 
+
+function triggerItem(item) {
+    $('.xplode img').attr('src', 'assets/items/' + item);
+    $('.xplode').addClass('do');
+    setTimeout(function () {
+        $('.xplode').hide();
+        $('.xplode').removeClass('do');
+        setTimeout(function(){
+            $('.xplode').show();
+        }, 1000);
+    }, 1000);
+}
+
 function correctStats(stats) {
     if (stats.happyness < 0) {
         stats.health -= 0.02;

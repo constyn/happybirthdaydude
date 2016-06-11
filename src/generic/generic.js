@@ -1,22 +1,5 @@
 var generic = [
-    {
-        title: "IT'S DANGEROUS TO GO ALONE! TAKE THIS!",
-        background: "general/cave.gif",
-        item: "general/goalone.png",
-        chance: function (stats) {
-            return hasItem(stats, 57) ? 0 : 0.001
-        },
-        options: [
-            {
-                title: "Take it!",
-                chance: 1,
-                action: function (success, stats) {
-                    stats.attack += 0.2;
-                    stats.items.push(57);
-                    return "You are stronger!"
-                }
-            }]
-    },
+
     {
         title: "You found a cave",
         background: "general/cave2.png",
@@ -59,6 +42,7 @@ var generic = [
                         fight(stats, {health: 0.3, defence: 0.1, attack: 0.1});
                         return "You had been attacked while you were sleeping. You had to fight!";
                     } else {
+                        stats.progress += 0.1;
                         stats.health += 0.01;
                         stats.happyness += 0.02;
                         return "You feel healthier and happier";

@@ -2,24 +2,44 @@ var coll_items = {
     gauntlet: 55,
     tomi: 23,
     girl: 42,
-    job: 43
+    job: 43,
+    zld: 57
 };
 
+
 var collectables = [
+    {
+        title: "IT'S DANGEROUS TO GO ALONE! TAKE THIS!",
+        background: "general/cave.gif",
+        item: "general/goalone.png",
+        chance: function (stats) {
+            return hasItem(stats, coll_items.zld) ? 0 : 0.001
+        },
+        options: [
+            {
+                title: "Take it!",
+                chance: 1,
+                action: function (success, stats) {
+                    stats.attack += 0.2;
+                    stats.items.push(coll_items.zld);
+                    triggerItem('general/goalone.png');
+                    return "You are stronger!"
+                }
+            }]
+    },
     {
         title: "You have found \"A Job\"",
         background: "general/zen_garden.png",
         item: "collectables/sclogo.png",
         chance: function (stats) {
             if (hasItem(stats, coll_items.job)) {
-                console.log("Has job");
-                if (Math.random() < 0.08) {
-                    console.log("gives money");
+                if (Math.random() < 0.02) {
+                    triggerItem('collectables/sclogo.png');
                     stats.money += 2;
                 }
                 return 0;
             } else {
-                return 1;//0.001;
+                return 0.001;
             }
         },
         options: [
@@ -40,6 +60,7 @@ var collectables = [
             if (hasItem(stats, coll_items.girl)) {
                 if (Math.random() < 0.01) {
                     stats.health += 0.05;
+                    triggerItem('collectables/girl.png');
                 }
                 return 0;
             } else {
@@ -65,6 +86,7 @@ var collectables = [
             if (hasItem(stats, coll_items.tomi)) {
                 if (Math.random() < 0.07) {
                     stats.happyness += 0.1;
+                    triggerItem('collectables/tomi.gif');
                     return 0;
                 }
             } else {
