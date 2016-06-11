@@ -99,6 +99,7 @@ function MainController($scope, $timeout) {
     };
 
     $scope.select = function (option) {
+
         $scope.result = undefined;
         if (typeof option.action === 'function') {
             $scope.result = option.action(checkIfPassed(option.chance), stats);
@@ -118,7 +119,6 @@ function MainController($scope, $timeout) {
             $("#killed").modal('show');
             restartLogic();
         }
-
 
         correctStats(stats);
     };
@@ -145,6 +145,7 @@ function MainController($scope, $timeout) {
         } else {
             console.log("Typed: ", val);
         }
+
     };
 
 

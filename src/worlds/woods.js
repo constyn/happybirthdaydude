@@ -17,7 +17,7 @@ var woods = [
                         stats.defence += 0.1;
                         stats.boss = 0;
                         stats.location = 1;
-                        stats.progress = 0;
+                        stats.progress = 0.01;
                         randomLoot(stats);
                         return "You defeated the Forest Guardian!";
                     } else {

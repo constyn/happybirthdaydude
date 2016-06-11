@@ -13,9 +13,21 @@ function guid() {
 }
 
 function pickFrom(arr) {
-    return arr[Math.round(Math.random() * (arr.length-1))];
+    return arr[Math.round(Math.random() * (arr.length - 1))];
 }
 
+
+function pickFromNum(arr, num) {
+    var localArr = [];
+    while (localArr.length < num) {
+        var local = pickFrom(arr);
+        if (localArr.indexOf(local) === -1) {
+            localArr.push(local);
+        }
+    }
+    
+    return localArr;
+}
 
 function prepareSeed(reset) {
     var seed;

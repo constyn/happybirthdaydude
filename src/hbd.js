@@ -37,7 +37,6 @@ function correctStats(stats) {
         stats[key] = stats[key] > 1 ? 1 : stats[key];
         stats[key] = stats[key] < 0 ? 0 : stats[key];
     });
-
 }
 
 function randomLoot(stats, gambling) {

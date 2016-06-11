@@ -1,10 +1,142 @@
 var generic = [
     {
+        title: "The Good Wich",
+        background: "general/unknown_grounds_2.png",
+        item: "general/bad-wich.gif",
+        chance: 0.004,
+        options: [
+            {
+                title: "Mingle all my stats",
+                chance: 1,
+                action: function (success, stats) {
+                    var locale = _.clone(stats);
+                    var mingled = pickFromNum(skills, skills.length);
+
+                    _.each(skills, function (key, index) {
+                        console.log(key, stats[key], " -- ", mingled[index], locale[mingled[index]]);
+                        stats[key] = locale[mingled[index]];
+                    });
+
+
+                    return "You might need to check your stats";
+                }
+            },
+            {
+                title: "Take -1 of one of my random stats",
+                chance: 1,
+                action: function (success, stats) {
+                    var stat = pickFrom(skills);
+                    stats[stat] -= 0.1;
+                    return "-" + stat;
+                }
+            }]
+    },
+    {
+        title: "The Good Wich",
+        background: "general/unknown_grounds.png",
+        item: "general/good-wich.gif",
+        chance: function (stats) {
+            return stats.location < 2 ? 0.005 : 0.001;
+        },
+        options: [
+            {
+                title: "+2 for 1 random stats; -2 for another",
+                chance: 1,
+                action: function (success, stats) {
+                    var skls = pickFromNum(skills, 2);
+                    stats[skls[0]] += 0.2;
+                    stats[skls[1]] -= 0.2;
+                    return "+" + skls[0] + "; -" + skls[1];
+                }
+            },
+            {
+                title: "+1 for 2 random stats; -1 for another",
+                chance: 1,
+                action: function (success, stats) {
+                    var skls = pickFromNum(skills, 3);
+                    stats[skls[0]] += 0.1;
+                    stats[skls[1]] += 0.1;
+                    stats[skls[2]] -= 0.1;
+
+                    return "+[" + skls[0] + "," + skls[1] + "] -[" + skls[2] + "]";
+                }
+            },
+            {
+                title: "I do not deal with the witches",
+                chance: 1,
+                action: "Be careful next time!"
+            }
+        ]
+    },
+    {
+        title: "Do you feel lucky? Double your bet!",
+        background: "general/tavernd.png",
+        item: "general/dice.gif",
+        chance: 0.09,
+        options: [
+            {
+                title: "I bet 1 coin",
+                chance: function (stats) {
+                    return stats.luck;
+                },
+                action: function (success, stats) {
+                    if (stats.money < 1) {
+                        return "You cannot afford!"
+                    } else if (success) {
+                        stats.money += 2;
+                        return "You won 2 coins - you lucky bastard";
+                    } else {
+                        stats.money -= 1;
+                        return "You lost!"
+                    }
+                }
+            },
+            {
+                title: "I bet 2 coins",
+                chance: function (stats) {
+                    return stats.luck;
+                },
+                action: function (success, stats) {
+                    if (stats.money < 2) {
+                        return "You cannot afford!"
+                    } else if (success) {
+                        stats.money += 4;
+                        return "You won 4 coins - you lucky bastard";
+                    } else {
+                        stats.money -= 2;
+                        return "You lost!"
+                    }
+                }
+            },
+            {
+                title: "I bet 4 coins",
+                chance: function (stats) {
+                    return stats.luck;
+                },
+                action: function (success, stats) {
+                    if (stats.money < 4) {
+                        return "You cannot afford!"
+                    } else if (success) {
+                        stats.money += 8;
+                        return "You won 8 coins - you lucky bastard";
+                    } else {
+                        stats.money -= 4;
+                        return "You lost!"
+                    }
+                }
+            },
+            {
+                title: "I have no money to bet",
+                chance: 1,
+                action: "Probably for the best"
+            }]
+    },
+    {
         title: "You found a bicycle - you can reach the end faster",
         background: "general/road.jpg",
         item: "general/bike.png",
         chance: function (stats) {
-            return stats.progress < 0.7 ? 0.08 : 0;
+            return stats.progress < 0.5 ? 0.03 : 0;
         },
         options: [
             {
@@ -71,7 +203,7 @@ var generic = [
                         fight(stats, {health: 0.3, defence: 0.1, attack: 0.1});
                         return "You had been attacked while you were sleeping. You had to fight!";
                     } else {
-                        stats.progress += 0.1;
+                        stats.progress += 0.13; //0.1 = 24h
                         stats.health += 0.01;
                         stats.happyness += 0.02;
                         return "You feel healthier and happier";

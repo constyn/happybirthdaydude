@@ -16,7 +16,7 @@ var mountains = [
                         stats.attack += 0.1;
                         stats.defence += 0.1;
                         stats.boss = 0;
-                        stats.progress = 0;
+                        stats.progress = 0.01;
                         stats.location = 2;
                         randomLoot(stats);
                         return "You defeated the Mountain Guardian!";
