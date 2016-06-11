@@ -201,12 +201,9 @@ function MainController($scope, $timeout) {
     tick();
 
     $(document).on('hidden.bs.modal', function (evt) {
-        console.log(evt);
         $timeout(function () {
             isResult = false;
-            if ($(evt.target).attr('id') !== "killed") {
-                tick();
-            }
+            tick();
         }, 10);
     });
 
