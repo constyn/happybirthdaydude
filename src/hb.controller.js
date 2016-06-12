@@ -171,7 +171,9 @@ function MainController($scope, $timeout) {
             window.localStorage.clear();
             stats = initialStats;
             event = undefined;
-            tick();
+            if(bool) {
+                tick();
+            }
         }
     };
 
